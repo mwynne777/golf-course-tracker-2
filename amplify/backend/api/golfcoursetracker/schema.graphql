@@ -1,0 +1,22 @@
+type Course @model {
+  id: ID!
+  clubName: String!
+  courseName: String!
+  city: String!
+  state: String!
+  courseAndSlopeRatings: [CourseAndSlopeRating]!
+}
+
+type CourseAndSlopeRating {
+  id: ID!
+  teeName: String!
+  gender: String
+  par: Int!
+  courseRating: Float
+  bogeyRating: Float
+  slopeRating: Float
+  frontCourseRating: Float
+  frontSlopeRating: Float
+  backCourseRating: Float
+  backSlopeRating: Float
+}

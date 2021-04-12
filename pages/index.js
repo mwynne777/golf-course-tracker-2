@@ -1,7 +1,23 @@
+import React, { useEffect } from 'react';
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { API } from '@aws-amplify/api';
+import { getCourse } from '../src/graphql/queries.ts';
 
 export default function Home() {
+
+  useEffect(() => {
+    async function fetchCourse(courseId) {
+      let response = await API.graphql({
+        query: getCourse,
+        variables: { id: courseId }
+      })
+      console.log(response.data.getCourse);
+    }
+
+    fetchCourse(10286);
+  }, []);
+
   return (
     <div className={styles.container}>
       <Head>

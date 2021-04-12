@@ -1,0 +1,26 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-golfcoursetracker-dev-210510-authRole",
+      "UnauthRoleArn": "arn:aws:iam::276257392632:role/amplify-golfcoursetracker-dev-210510-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::276257392632:role/amplify-golfcoursetracker-dev-210510-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-golfcoursetracker-dev-210510-deployment",
+      "UnauthRoleName": "amplify-golfcoursetracker-dev-210510-unauthRole",
+      "StackName": "amplify-golfcoursetracker-dev-210510",
+      "StackId": "arn:aws:cloudformation:us-east-2:276257392632:stack/amplify-golfcoursetracker-dev-210510/442cd7c0-8084-11eb-aa3f-06b72adbfdfe",
+      "AmplifyAppId": "d3iyfpnrkgptux"
+    },
+    "categories": {
+      "auth": {
+        "golfcoursetracker26bb1097": {}
+      },
+      "function": {
+        "courseFetcher": {
+          "deploymentBucketName": "amplify-golfcoursetracker-dev-210510-deployment",
+          "s3Key": "amplify-builds/courseFetcher-4579424f343654686e48-build.zip"
+        }
+      }
+    }
+  }
+}
