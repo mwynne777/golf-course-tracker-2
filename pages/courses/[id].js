@@ -1,11 +1,35 @@
 import { API } from '@aws-amplify/api';
 import { listCourseIDs } from '../../src/graphql/custom-queries.ts';
 import { getCourse } from '../../src/graphql/queries.ts';
+import { PageHeader, Tag, Button, Statistic, Row } from 'antd';
 
 const Course = (props) => {
 
     return (
-        <h1>{props.course.courseName}</h1>
+        <PageHeader
+            onBack={() => window.history.back()}
+            title={props.course.courseName}
+            tags={<Tag color="blue">Running</Tag>}
+            subTitle={`${props.course.city}, ${props.course.state}`}
+            extra={[
+                <Button key="3">Operation</Button>,
+                <Button key="2">Enter Score</Button>,
+                <Button key="1" type="primary">Write Review</Button>,
+            ]}
+        >
+            <Row>
+                <Statistic title="Status" value="Pending" />
+                <Statistic
+                    title="Price"
+                    prefix="$"
+                    value={568.08}
+                    style={{
+                        margin: '0 32px',
+                    }}
+                />
+                <Statistic title="Balance" prefix="$" value={3345.08} />
+            </Row>
+        </PageHeader>
     );
 };
 
