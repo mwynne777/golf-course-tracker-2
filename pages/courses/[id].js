@@ -19,6 +19,10 @@ const Course = (props) => {
         >
             <Row>
                 <Statistic title="Status" value="Pending" />
+                <Statistic title="Balance" prefix="$" value={3345.08} />
+            </Row>
+            <Row>
+                <Statistic title="Status" value="Pending" />
                 <Statistic
                     title="Price"
                     prefix="$"
