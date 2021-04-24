@@ -148,6 +148,78 @@ export type ModelCourseConnection = {
   nextToken?: string | null,
 };
 
+export type SearchableCourseFilterInput = {
+  id?: SearchableIDFilterInput | null,
+  clubName?: SearchableStringFilterInput | null,
+  courseName?: SearchableStringFilterInput | null,
+  city?: SearchableStringFilterInput | null,
+  state?: SearchableStringFilterInput | null,
+  and?: Array< SearchableCourseFilterInput | null > | null,
+  or?: Array< SearchableCourseFilterInput | null > | null,
+  not?: SearchableCourseFilterInput | null,
+};
+
+export type SearchableIDFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableStringFilterInput = {
+  ne?: string | null,
+  gt?: string | null,
+  lt?: string | null,
+  gte?: string | null,
+  lte?: string | null,
+  eq?: string | null,
+  match?: string | null,
+  matchPhrase?: string | null,
+  matchPhrasePrefix?: string | null,
+  multiMatch?: string | null,
+  exists?: boolean | null,
+  wildcard?: string | null,
+  regexp?: string | null,
+  range?: Array< string | null > | null,
+};
+
+export type SearchableCourseSortInput = {
+  field?: SearchableCourseSortableFields | null,
+  direction?: SearchableSortDirection | null,
+};
+
+export enum SearchableCourseSortableFields {
+  id = "id",
+  clubName = "clubName",
+  courseName = "courseName",
+  city = "city",
+  state = "state",
+}
+
+
+export enum SearchableSortDirection {
+  asc = "asc",
+  desc = "desc",
+}
+
+
+export type SearchableCourseConnection = {
+  __typename: "SearchableCourseConnection",
+  items?:  Array<Course | null > | null,
+  nextToken?: string | null,
+  total?: number | null,
+};
+
 export type CreateCourseMutationVariables = {
   input?: CreateCourseInput,
   condition?: ModelCourseConditionInput | null,
@@ -309,6 +381,46 @@ export type ListCoursesQuery = {
       updatedAt: string,
     } | null > | null,
     nextToken?: string | null,
+  } | null,
+};
+
+export type SearchCoursesQueryVariables = {
+  filter?: SearchableCourseFilterInput | null,
+  sort?: SearchableCourseSortInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+  from?: number | null,
+};
+
+export type SearchCoursesQuery = {
+  searchCourses?:  {
+    __typename: "SearchableCourseConnection",
+    items?:  Array< {
+      __typename: "Course",
+      id: string,
+      clubName: string,
+      courseName: string,
+      city: string,
+      state: string,
+      courseAndSlopeRatings:  Array< {
+        __typename: "CourseAndSlopeRating",
+        id: string,
+        teeName: string,
+        gender?: string | null,
+        par: number,
+        courseRating?: number | null,
+        bogeyRating?: number | null,
+        slopeRating?: number | null,
+        frontCourseRating?: number | null,
+        frontSlopeRating?: number | null,
+        backCourseRating?: number | null,
+        backSlopeRating?: number | null,
+      } | null >,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken?: string | null,
+    total?: number | null,
   } | null,
 };
 

@@ -61,3 +61,45 @@ export const listCourses = /* GraphQL */ `
     }
   }
 `;
+export const searchCourses = /* GraphQL */ `
+  query SearchCourses(
+    $filter: SearchableCourseFilterInput
+    $sort: SearchableCourseSortInput
+    $limit: Int
+    $nextToken: String
+    $from: Int
+  ) {
+    searchCourses(
+      filter: $filter
+      sort: $sort
+      limit: $limit
+      nextToken: $nextToken
+      from: $from
+    ) {
+      items {
+        id
+        clubName
+        courseName
+        city
+        state
+        courseAndSlopeRatings {
+          id
+          teeName
+          gender
+          par
+          courseRating
+          bogeyRating
+          slopeRating
+          frontCourseRating
+          frontSlopeRating
+          backCourseRating
+          backSlopeRating
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+      total
+    }
+  }
+`;

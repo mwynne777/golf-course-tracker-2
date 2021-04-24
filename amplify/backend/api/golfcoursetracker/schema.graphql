@@ -1,4 +1,4 @@
-type Course @model {
+type Course @model @searchable {
   id: ID!
   clubName: String!
   courseName: String!

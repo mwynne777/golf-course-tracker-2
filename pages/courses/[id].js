@@ -1,16 +1,33 @@
+import { useEffect, useState } from 'react';
 import { API } from '@aws-amplify/api';
 import { listCourseIDs } from '../../src/graphql/custom-queries.ts';
 import { getCourse } from '../../src/graphql/queries.ts';
 import { PageHeader, Tag, Button, Statistic, Row } from 'antd';
 
 const Course = (props) => {
+    const [course, setCourse] = useState(props.course);
+
+    useEffect(() => {
+        const fetchCourse = async () => {
+            const result = await API.graphql({
+                query: getCourse,
+                variables: { id: props.course.id }
+            });
+            //TODO: Error handling
+            setCourse(result.data.getCourse);
+        }
+        if (props.error) {
+            console.log("Making the extra call because of error in pre-rendering");
+            fetchCourse();
+        }
+    }, []);
 
     return (
         <PageHeader
             onBack={() => window.history.back()}
-            title={props.course.courseName}
+            title={course.courseName}
             tags={<Tag color="blue">Running</Tag>}
-            subTitle={`${props.course.city}, ${props.course.state}`}
+            subTitle={`${course.city}, ${course.state}`}
             extra={[
                 <Button key="3">Operation</Button>,
                 <Button key="2">Enter Score</Button>,
@@ -41,14 +58,32 @@ export default Course;
 
 export async function getStaticProps({ params }) {
 
-    const courses = await API.graphql({
-        query: getCourse,
-        variables: { id: params.id }
-    });
+    let course = { id: params.id, courseName: '', city: '', state: '' };
+
+    try {
+        course = await API.graphql({
+            query: getCourse,
+            variables: { id: params.id }
+        });
+
+        if (!course || !course.data || !course.data.getCourse || course.errors) {
+            console.log("Uncaught Error on course: ", params.id);
+        }
+
+    } catch (e) {
+        console.log("Caught Error on course: ", params.id)
+        return {
+            props: {
+                course,
+                error: true
+            }
+        }
+    }
 
     return {
         props: {
-            course: courses.data.getCourse,
+            course: course.data.getCourse,
+            error: false
         }
     }
 };
