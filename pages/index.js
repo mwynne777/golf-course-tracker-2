@@ -24,13 +24,16 @@ export default function Home() {
   }
 
   const getAutoCompleteOptionsAsLinks = () => {
-    return autoCompleteOptions.map(item => (
-      <Option value={item.courseName} key={item.courseName}>
-        <Link href={`/courses/${item.id}`}>
-          {item.courseName}
-        </Link>
-      </Option>
-    ));
+    return autoCompleteOptions.map(item => {
+      const title = `${item.courseName}, ${item.city}, ${item.state}`;
+      return (
+        <Option value={title} key={title}>
+          <Link href={`/courses/${item.id}`}>
+            {title}
+          </Link>
+        </Option>
+      )
+    });
   }
 
   return (
@@ -41,7 +44,7 @@ export default function Home() {
       </Head>
       <AutoComplete
         onChange={getAutoComplete}
-        style={{ width: 200 }}
+        style={{ width: 300 }}
         placeholder='Enter Course or City'
       >
         {getAutoCompleteOptionsAsLinks()}
